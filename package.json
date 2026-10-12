@@ -1,0 +1,16 @@
+{
+  "name": "caggursoy-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Çağatay Gürsoy — personal website. Static site with a Markdown-powered blog. Build with Astro; deploy from dist/ to cPanel.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "astro": "^5.18.2"
+  }
+}

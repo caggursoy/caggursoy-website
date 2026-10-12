@@ -1,6 +1,7 @@
-
 ---
 deployment:
   tasks:
     - export DEPLOYPATH=/home/cagatay4/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    # The Astro build output lives in the committed `dist/` folder:
+    # index.html, blog/, images/, assets/, blog.html ↗, rss.xml …
+    - /bin/cp -R dist/* $DEPLOYPATH

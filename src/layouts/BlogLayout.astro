@@ -1,0 +1,71 @@
+---
+// Shared layout for blog pages — matches your site's navbar/hero/footer design.
+interface Props {
+  title: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+}
+const { title, heroTitle, heroSubtitle } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <title>{title} — Çağatay Gürsoy</title>
+  <link rel="shortcut icon" type="image/ico" href="/images/darkside.ico"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <link href="/assets/blog.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="container">
+      <a href="/index.html" class="brand">Çağatay <span>Gürsoy</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/blog/" class="active">Blog</a></li>
+        <li><a href="/who.html">Who Am I?</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </div>
+  </nav>
+
+  {
+    heroTitle ? (
+      <header class="hero">
+        <div class="container">
+          {heroSubtitle && <span class="eyebrow">{heroSubtitle}</span>}
+          <h1 set:html={heroTitle}></h1>
+        </div>
+      </header>
+    ) : null
+  }
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year" data-year></span> Çağatay Gürsoy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    var toggle = document.querySelector('.nav-toggle');
+    var links = document.querySelector('.nav-links');
+    if (toggle && links) {
+      toggle.addEventListener('click', function () {
+        links.classList.toggle('open');
+      });
+    }
+    var yearEl = document.querySelector('[data-year]');
+    if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+  </script>
+</body>
+</html>

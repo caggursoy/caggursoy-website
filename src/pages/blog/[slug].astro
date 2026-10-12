@@ -1,0 +1,53 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const pubDate = entry.data.pubDate;
+
+export const prerender = true;
+
+const formatted = new Intl.DateTimeFormat('tr-TR', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+const formatDate = (d) => formatted.format(d);
+const posts = (await getCollection('blog')).sort(
+  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+);
+const idx = posts.findIndex((p) => p.slug === entry.slug);
+const next = idx > 0 ? posts[idx - 1] : null;
+const prev = idx >= 0 && idx < posts.length - 1 ? posts[idx + 1] : null;
+---
+<BlogLayout title={entry.data.title}>
+  <section class="section post-page">
+    <div class="post-body">
+      <a class="back-link" href="/blog/">← Tüm yazılar</a>
+
+      <h1 class="post-title">{entry.data.title}</h1>
+      <p class="post-meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        {entry.data.tags.map((tag) => <span class="tag">#{tag}</span>)}
+      </p>
+
+      <Content />
+
+      {
+        (prev || next) && (
+          <nav class="post-nav">
+            {prev && <a class="post-nav-prev" href={`/blog/${prev.slug}/`}>← {prev.data.title}</a>}
+            {next && <a class="post-nav-next" href={`/blog/${next.slug}/`}>{next.data.title} →</a>}
+          </nav>
+        )
+      }
+    </div>
+  </section>
+</BlogLayout>

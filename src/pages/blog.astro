@@ -1,0 +1,59 @@
+---
+import BlogLayout from '../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) =>
+  a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+);
+
+const pinned = posts.filter(p => p.data.pinned);
+const regular = posts.filter(p => !p.data.pinned);
+const ordered = [...pinned.reverse(), ...regular.reverse()];
+
+const formatted = new Intl.DateTimeFormat('tr-TR', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+function formatDate(d: Date) {
+  return formatted.format(d);
+}
+---
+<BlogLayout
+  title="Blog"
+  heroSubtitle="Niçin?"
+  heroTitle="Niçin yazıyorum? <br/>ya da fikirler okyanusunda boğulmadan nasıl hayatta kalırım?"
+>
+  <section class="section">
+    <div class="container">
+      <div class="blog-list">
+
+        <div class="blog-meta">
+          <span>{posts.length} gönderi</span>
+          <a href="/rss.xml" class="rss-link" title="Subscribe via RSS">RSS</a>
+        </div>
+
+        {
+          ordered.map((post) => (
+            <article class="card blog-card">
+              <h3 class="blog-card-title">
+                <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+              </h3>
+              <p class="blog-card-meta">
+                <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                {
+                  post.data.pinned && <span class="tag pinned-tag">Sabit</span>
+                }
+                {
+                  post.data.tags.map((tag) => <span class="tag">#{tag}</span>)
+                }
+              </p>
+              {post.data.description && (
+                <p class="blog-card-desc">{post.data.description}</p>
+              )}
+            </article>
+          ))
+        }
+
+      </div>
+    </div>
+  </section>
+</BlogLayout>

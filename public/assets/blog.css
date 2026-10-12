@@ -1,0 +1,145 @@
+/* Extra blog-specific styles on top of style.css */
+
+/* ---------- Post list ---------- */
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  color: var(--text-faint);
+  font-size: .9rem;
+}
+
+.rss-link {
+  font-size: .85rem;
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: var(--text-muted);
+}
+.rss-link:hover { border-color: var(--accent); color: var(--accent); }
+
+.blog-card {
+  padding: 26px 30px;
+  margin-bottom: 18px;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.blog-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.blog-card-title { margin-bottom: 8px; }
+.blog-card-title a { color: var(--text); }
+.blog-card-title a:hover { color: var(--accent); }
+
+.blog-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: .85rem;
+  color: var(--text-faint);
+  margin-bottom: 10px;
+}
+
+.blog-card-desc {
+  margin: 0;
+  font-size: .95rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Tags ---------- */
+
+.tag {
+  font-size: .72rem;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+
+.pinned-tag {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---------- Single post page ---------- */
+
+.post-body { max-width: 720px; margin: 0 auto; }
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 26px;
+  font-size: .9rem;
+  color: var(--text-muted);
+}
+.back-link:hover { color: var(--accent); }
+
+.post-title { font-size: 2rem; margin-bottom: 8px; }
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: .85rem;
+  color: var(--text-faint);
+  margin-bottom: 34px;
+}
+
+/* Markdown rendered content */
+.post-body h2 {
+  margin-top: 1.8em;
+  padding-bottom: .3em;
+  border-bottom: 1px solid var(--border);
+}
+.post-body h3 { margin-top: 1.5em; }
+.post-body blockquote {
+  margin: 1.2em 0;
+  padding: 12px 20px;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text-muted);
+}
+.post-body code {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: .88em;
+}
+.post-body pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+.post-body pre code { background: none; border: none; padding: 0; }
+.post-body li { margin-bottom: .35em; }
+.post-body hr { border: none; border-top: 1px solid var(--border); margin: 2.2em 0; }
+.post-body img { border-radius: var(--radius); margin: 1.2em 0; }
+
+/* Prev / next navigation */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: .9rem;
+}
+.post-nav a { color: var(--text-muted); }
+.post-nav a:hover { color: var(--accent); }
+
+/* ---------- Academic references (Kaynaklar) ---------- */
+.post-body { scroll-padding-top: 80px; }
+.post-body #kaynaklar { margin-top: 2.4em; }
+.post-body span[id^="ref-"] { scroll-margin-top: 90px; }
+/* Reference entries with source links */
+.post-body p a[href^="http"] {
+  color: var(--accent);
+  word-break: break-word;
+}
